@@ -1,0 +1,23 @@
+%div{role: "tabpanel"}
+  %ul.nav.navbar-inverse.nav-tabs{role: "tablist"}
+    %li.acti{ role: "presentation"}
+      %a{id: 'homeUrl' , href: "#"} Home
+    %li{role: "presentation"}
+      %a{id: 'companiesUrl' ,href: "#"} Companies
+    %li{role: "presentation"}
+      %a{id: 'importUrl' , href: "#"} Import operations
+
+
+- content_for(:page_javascript) do
+
+  :coffeescript
+    $(document).ready ->
+      $('#companiesUrl').on 'click', (e) ->
+        e.preventDefault
+        $.get "/companies"
+      $('#homeUrl').on 'click', (e) ->
+        e.preventDefault
+        $.get "/"
+      $('#importUrl').on 'click', (e) ->
+        e.preventDefault
+        $.get "operations/import"

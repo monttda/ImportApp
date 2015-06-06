@@ -1,4 +1,16 @@
 Rails.application.routes.draw do
+
+  root 'companies#home'
+
+  resources :companies, only: [:index] do
+    resources :operations do
+      get "for_company", on: :collection
+    end
+  end
+
+  resources :operations do
+    get "import", on: :collection
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
