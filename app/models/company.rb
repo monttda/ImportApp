@@ -15,7 +15,18 @@ class Company < ActiveRecord::Base
   # * :name [String] company's name
   # * :num_of_operations [Integer]  the number of opertions in the company for a given month
   def self.display_information()
-    companies = Company.all
-    
+    companies_info = []
+    Company.order(:name).each do |company|
+      company_info= {}
+      company_operations = company.operations
+      company_info[:name] = company.name
+      company_info[:accepted_operations] =
+        company_operations.where(status: 'accepted')
+      company_info[:avg_amount_of_operations] = 3
+      company_info[:highest_operation] = company_operations.maximum(:amount)
+      company_info[:num_of_operations] = company_operations.size
+      companies_info << company_info
+    end
+    companies_info
   end
 end
