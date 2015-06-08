@@ -1,0 +1,15 @@
+.panel.panel-default
+  .panel-heading{"id" => "heading_##{company_info[:id]}", :role => "tab"}
+    %h4.panel-title
+      %a{ "aria-controls" => "##{company_info[:id]}",
+          "aria-expanded" => "true",
+          "data-parent" => "#accordion",
+          "data-toggle" => "collapse",
+          :href => "#company_#{company_info[:id]}"}
+        = company_info[:text]
+      &nbsp;&nbsp;
+      %button.btn-xs.btn.btn-default Import operations to CSV
+  .panel-collapse.collapse{ "id" => "company_#{company_info[:id]}",
+                            "aria-labelledby" => "heading_##{company_info[:id]}",
+                            :role => "tabpanel"}
+    .panel-body
