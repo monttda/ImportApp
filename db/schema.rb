@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150602114858) do
+ActiveRecord::Schema.define(version: 20150612125735) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,25 @@ ActiveRecord::Schema.define(version: 20150602114858) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer  "priority",         default: 0, null: false
+    t.integer  "attempts",         default: 0, null: false
+    t.text     "handler",                      null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "progress_stage"
+    t.integer  "progress_current", default: 0
+    t.integer  "progress_max",     default: 0
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+
   create_table "operations", force: :cascade do |t|
     t.string   "invoice_num",                             null: false
     t.date     "invoice_date",                            null: false
@@ -44,7 +63,6 @@ ActiveRecord::Schema.define(version: 20150602114858) do
     t.string   "reporter"
     t.text     "notes"
     t.string   "status",                                  null: false
-    t.string   "kind",                                    null: false
     t.datetime "created_at",                              null: false
     t.datetime "updated_at",                              null: false
     t.integer  "company_id"

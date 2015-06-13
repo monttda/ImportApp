@@ -38,12 +38,11 @@ RSpec.describe Company, type: :model do
          # database
          the_operation
          result = Company.display_information
-         expected_text = "#{the_company.name}  |  Number of operations "\
-                         "1  |  Average amount of "\
-                         "operations: #{the_operation.amount} |  "\
-                         "Highest operation: #{the_operation.amount}  |  "\
+         expected_text = "#{the_company.name} | Number of operations "\
+                         "1 | Average amount of "\
+                         "operations: #{the_operation.amount} | "\
+                         "Highest operation: #{the_operation.amount} | "\
                          "Accepted operations: 1"
-
          expect(result.first).to include(name: the_company.name,
                                          text: expected_text,
                                          id: the_company.id)

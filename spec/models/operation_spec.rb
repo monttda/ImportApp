@@ -25,9 +25,6 @@ RSpec.describe  Operation do
     it "notes" do
       expect(the_operation).to respond_to(:notes)
     end
-    it "kind" do
-      expect(the_operation).to respond_to(:kind)
-    end
     it "status" do
       expect(the_operation).to respond_to(:status)
     end

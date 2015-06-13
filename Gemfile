@@ -3,12 +3,18 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
-gem 'responders','~> 2.0'
 # Use postgresql as the database for Active Record
 gem 'pg'
 # Use SCSS for stylesheets
 #gem 'sass-rails', '~> 5.0'
+gem 'thin'
 
+# Allow to use Rails form herlpers for uploading multiparts
+gem 'remotipart', '~> 1.2'
+# Gems for background processing
+gem 'daemons'
+gem 'progress_job'
+gem 'delayed_job_active_record'
 # Twitter Bootstap
 gem 'bootstrap-sass', '~> 3.3.4'
 gem 'autoprefixer-rails' , '~> 5.2.0'
@@ -20,7 +26,9 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
-
+gem 'activerecord-import', '~> 0.7.0'
+# Gem used to process big CSV files more efficiently
+gem 'smarter_csv'
 # HTML abstraction markup language to have cleaner views at code level
 gem 'haml', '~> 4.0.0'
 # Use jquery as the JavaScript library

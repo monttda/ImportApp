@@ -6,7 +6,8 @@ class Company < ActiveRecord::Base
   # Returns all the information needed to be displayed for each company
   # in a hash for a given month.
   #
-  # @param [Integer] month the number representing the month for which the company information is wanted
+  # @param [Integer] month the number representing the month for which the
+  #                  company information is wanted
   #
   # @return [Array<Hash>] companies_info information for each company.
   # * :text [String]  String containing companies data for display.
@@ -31,7 +32,7 @@ class Company < ActiveRecord::Base
                             "#{num_of_operations} | Average amount of "\
                             "operations: #{avg_amount_of_operations} | "\
                             "Highest operation: #{highest_operation} | "\
-                            "Accepted operations: #{accepted_operations}         l"
+                            "Accepted operations: #{accepted_operations}"
 
       companies_info << company_info
     end

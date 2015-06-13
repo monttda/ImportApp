@@ -1,0 +1,34 @@
+.col-xs-12
+  %h2 Import Operations
+  = form_tag import_operations_path,  remote: true, method: :post, multipart: true , id: "csv_document"do
+    .row
+      .col-xs-4
+        = file_field_tag :file ,class: "btn btn-primary"
+      .col-xs-4
+        = submit_tag "Import", class: "btn btn-primary", id: "send_csv"
+        .loader_wrapper
+      .col-xs-4
+    .row
+      .errors_wrapper.danger-text
+    %br
+    .well{style: "display:none"}
+      .row
+        .col-xs-12
+          .progress-status.text-primary
+      .row
+        .col-xs-12
+          .progress.progress-striped.active
+            .progress-bar
+              .text-primary
+                0%
+
+- content_for(:page_javascript) do
+  :coffeescript
+    $(document).ready ->
+      $('#send_csv').on 'click', (e) ->
+        e.preventDefault()
+        $('#csv_document').submit()
+        $(this).addClass('disabled')
+               .addClass('hidden')
+        $('.loader_wrapper').html("#{j(render 'operations/ajax_loader')}")
+        $('.errors_wrapper').empty()

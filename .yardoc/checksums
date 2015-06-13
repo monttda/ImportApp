@@ -1,0 +1,7 @@
+app/models/company.rb e519da45628a11602b45bd89718101457341aab3
+app/models/category.rb 969949b3228c82cf36a94757f783de190afeab78
+app/models/operation.rb 8ee843a53182453ffccf089770340bfc69642038
+app/helpers/application_helper.rb eef3d3adce96afe8b14c19b6135323f47543d979
+app/controllers/companies_controller.rb e5e932a2c32dabdb6cbb8197b9640e8dacdc2071
+app/controllers/operations_controller.rb fe05aecc60d780d4169afa8131e8a59b137e7afc
+app/controllers/application_controller.rb ab630d6e982f8c2e4155163434e4719f8804cf10

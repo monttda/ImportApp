@@ -8,13 +8,19 @@ FactoryGirl.define do
     amount Random.new.rand(20.0..2000.0)
     reporter "King Ragnar Lodbrok"
     notes "Just rom random note"
-    kind "Lorem ipsum"
     company
     status "accepted"
+
+    after(:build) do |operation|
+      operation.categories << create(:category)
+
+    end
 
     trait :declined do
       status "declined"
     end
+
+
 
   end
 

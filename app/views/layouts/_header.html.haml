@@ -11,7 +11,7 @@
       %h2.col-xs-6 Welcome to the Import App where You can see the companies operations, filter them and add import and export the operations!
     #companies.tab-pane{:role => "tabpanel"}
     #import.tab-pane{:role => "tabpanel"}
-
+      = render "operations/operations_file_uploader"
 - content_for(:page_javascript) do
 
   :coffeescript
@@ -19,6 +19,3 @@
       $('#companiesUrl').one 'click', (e) ->
         e.preventDefault
         $.get "/companies"
-      $('#importUrl').one 'click', (e) ->
-        e.preventDefault
-        $.get "operations/import"
