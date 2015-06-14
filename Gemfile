@@ -7,9 +7,15 @@ gem 'rails', '4.2.1'
 gem 'pg'
 # Use SCSS for stylesheets
 #gem 'sass-rails', '~> 5.0'
-gem 'thin'
 
-# Allow to use Rails form herlpers for uploading multiparts
+# Webserver
+gem 'thin'
+# gem "squeel"
+gem "squeel", '~> 1.2.3'
+
+# Responders gem
+gem "responders", '~> 2.1.0'
+# Allow to use Rails form herlpers for uploading files as multiparts
 gem 'remotipart', '~> 1.2'
 # Gems for background processing
 gem 'daemons'
@@ -33,6 +39,8 @@ gem 'smarter_csv'
 gem 'haml', '~> 4.0.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+# Gem for Pagination
+gem 'kaminari'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # Alternate documentation tool

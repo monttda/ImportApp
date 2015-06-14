@@ -12,7 +12,6 @@ class ImportCsvJob < ProgressJob::Base
     success = 0
     processed =0
 
-    existing_invoice_num = {}
     update_stage('Processing the CSV')
     if @operations.size > 0
       total_operations =
@@ -23,16 +22,13 @@ class ImportCsvJob < ProgressJob::Base
       value_per_operation = 0
     end
     @operations.each do |operations_chunk|
-      operations_array = []
       operations_chunk.each do |operation|
         company_name = operation.delete(:company)
 
         operation_invoice_num = operation[:invoice_num]
         if (companies_hash.has_key?(company_name) &&
-            !existing_invoice_num.has_key?(operation_invoice_num) &&
             operation[:kind].present? )
           categories_names = operation.delete(:kind).split(';')
-          existing_invoice_num [operation_invoice_num] = true
           company_id_hash = {company_id: companies_hash[company_name]}
           [:invoice_date, :operation_date].each do |key|
             operation[key] =
@@ -44,10 +40,14 @@ class ImportCsvJob < ProgressJob::Base
             new_operation.errors.clear
             categories_names.each do |category_name|
               category =
-                Category.find_or_create_by(name: category_name.downcase)
+                Category.find_or_initialize_by(name: category_name.downcase)
               new_operation.categories << category
             end
-            operations_array << new_operation
+            if new_operation.save
+              success += 1
+            else
+              failed += 1
+            end
           else
             failed+=1
           end
@@ -56,9 +56,6 @@ class ImportCsvJob < ProgressJob::Base
         end
       end
       processed+= operations_chunk.size
-      results = Operation.import(operations_array, validate: false)
-      success += operations_array.size - results.failed_instances.size
-      failed += results.failed_instances.size
       update_stage_progress(
         "Processed operations: #{processed}/ #{total_operations} |  "\
         "Succeded: #{success} | Failed: #{failed}",

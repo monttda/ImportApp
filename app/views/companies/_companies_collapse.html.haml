@@ -1,3 +1,9 @@
+.operations_filter
+  .container
+    .col-xs-10
+      %input#operations_filter.form-control{placeholder: 'Filter by invoice number, reporter, categories and kind '}
+    .col-xs-2
+      #apply_filters.btn.btn-primary Filter By
 #accordion.panel-group{"aria-multiselectable" => "true", :role => "tablist"}
   -@companies_info.each do |company_info|
     =render partial: 'company' , locals: {company_info: company_info}

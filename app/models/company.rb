@@ -17,13 +17,18 @@ class Company < ActiveRecord::Base
     Company.order(:name).each do |company|
       company_info= {}
       company_operations = company.operations
+      month_operations =
+        company_operations.where("extract(month from operation_date) = ? AND "\
+                                 "extract(year from operation_date) = ?",
+                                 Date.today.month,
+                                 Date.today.year  )
       name = company.name
       accepted_operations =
         company_operations.where(status: 'accepted').size
       avg_amount_of_operations =
         company_operations.average(:amount)
       avg_amount_of_operations ||= 0
-      highest_operation = company_operations.maximum(:amount)
+      highest_operation = month_operations.maximum(:amount)
       highest_operation ||= 0
       num_of_operations = company_operations.size
       company_info[:id] = company.id

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :companies, only: [:index] do
     resources :operations, only: []do
       get "for_company", on: :collection
+      get "csv_for_company", on: :collection
     end
   end
 

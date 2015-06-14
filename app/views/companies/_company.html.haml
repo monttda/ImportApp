@@ -1,15 +1,31 @@
 .panel.panel-default
-  .panel-heading{"id" => "heading_##{company_info[:id]}", :role => "tab"}
+  .panel-heading{"id" => "heading_#{company_info[:id]}", :role => "tab"}
     %h4.panel-title
-      %a{ "aria-controls" => "##{company_info[:id]}",
-          "aria-expanded" => "true",
+      %a.company_header{ "aria-controls" => "company_#{company_info[:id]}",
+          "aria-expanded" => "false",
           "data-parent" => "#accordion",
           "data-toggle" => "collapse",
-          :href => "#company_#{company_info[:id]}"}
+          "data-target" => "#company_#{company_info[:id]}"}
         = company_info[:text]
       &nbsp;&nbsp;
-      %button.btn-xs.btn.btn-default Import operations to CSV
+      %button.btn-xs.btn.btn-warning.import_csv Import operations to CSV
   .panel-collapse.collapse{ "id" => "company_#{company_info[:id]}",
-                            "aria-labelledby" => "heading_##{company_info[:id]}",
+                            "aria-labelledby" => "heading_#{company_info[:id]}",
                             :role => "tabpanel"}
     .panel-body
+      %table.table-condensed.table-hover.table{id: "company_#{company_info[:id]}_table",
+                                  data: {company: "#{company_info[:id]}",
+                                         filter: '',
+                                         nextpage: '',
+                                         opened: 0}}
+        %thead
+          %tr
+            %th.col-xs-2 Invoice Number
+            %th.col-xs-2 Invoice Date
+            %th.col-xs-2 Operation Date
+            %th.col-xs-1 Amount
+            %th.col-xs-1 Reporter
+            %th.col-xs-2 Notes
+            %th.col-xs-2 Kind
+        %tbody
+      .btn.btn-primary.more_operations Load More
