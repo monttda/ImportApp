@@ -11,9 +11,15 @@ FactoryGirl.define do
     company
     status "accepted"
 
-    after(:build) do |operation|
-      operation.categories << create(:category)
-
+    transient do
+      category_name nil
+    end
+    after(:build) do |operation, evaluator|
+      if evaluator.category_name
+        operation.categories << create(:category, name: evaluator.category_name)
+      else
+        operation.categories << create(:category)
+      end
     end
 
     trait :declined do
