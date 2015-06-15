@@ -4,7 +4,7 @@ class OperationsController < ApplicationController
   before_action :fetch_operations, only: [:for_company,:csv_for_company]
 
   # POST /operations/import
-  # Imports operations from a csv file
+  # Imports operations from a csv filera
   def import
     file = params[:file]
     if file.present?
