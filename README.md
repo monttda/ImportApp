@@ -47,3 +47,12 @@ Not everything is a must, please send your work back whenever you feel you've do
   * There should be button beside data about company that will let user download CSV file.
   * Rows in the file should contain the same data they had in the import file.
   * Operations in the file should be only the filtered ones.
+
+
+# Extra instructions
+
+  * In addition to the setup mentioned before it will be necessary to run along with the server a worker with
+   ```
+   rake jobs:work
+   ```
+  so that the import csv functionality will work.
