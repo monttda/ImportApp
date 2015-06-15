@@ -56,3 +56,10 @@ Not everything is a must, please send your work back whenever you feel you've do
    rake jobs:work
    ```
   so that the import csv functionality will work.
+  
+  * The app is set to run with ruby 2.2.2
+  
+# Usability information
+ * When loaded the application there will be a home view with a message on it and 3 tabs(Home, Companies and Import Operations ) on the navigation bar beign this view Home.
+ * When clicking on Companies a list of the companies will appear with their respective stats an when clicking in the name of the company this collapsable (http://getbootstrap.com/javascript/#collapse) will open and show all the operations (in a table with all the operations information) if there is any operation for that company yet.
+ * When clicking in Import Operations this will take to a view when You can upload a csv file with an specific format otherwise it will say the format of the csv is not valid. If valid it will show a progress bar with an explicative text of processed , failed and success imported operations
