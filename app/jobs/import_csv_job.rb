@@ -30,10 +30,24 @@ class ImportCsvJob < ProgressJob::Base
       total_operations= 0
       value_per_operation = 0
     end
+    do_once = true
+    headers = [:company,:invoice_num,:invoice_date,
+                :operation_date,:amount,:reporter,
+                :notes,:status,:kind
+              ]
 
-
-      operations.each do |operations_chunk|
+    operations.each do |operations_chunk|
       operations_chunk.each do |operation|
+        # Handle csv files with incorrect headers
+        if do_once
+          do_once = false
+          file_headers = operation.keys
+          file_headers.each do |file_header|
+            if !headers.include?(file_header) || headers.size > file_headers.size
+              raise "Invalid csv format"
+            end
+          end
+        end
         company_name = operation.delete(:company)
 
         operation_invoice_num = operation[:invoice_num]

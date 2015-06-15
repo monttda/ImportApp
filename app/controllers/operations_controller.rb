@@ -15,7 +15,6 @@ class OperationsController < ApplicationController
           options = {:chunk_size => ImportCsvJob::CHUNK_SIZE}
           uploader = CsvFileUploader.new
           uploader.store!(file)
-          #operations = SmarterCSV.process(file.tempfile, options)
           @import_job = Delayed::Job.enqueue(ImportCsvJob.new(file.original_filename))
       end
       else

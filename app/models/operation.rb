@@ -39,6 +39,8 @@ class Operation < ActiveRecord::Base
     operations_for_company.order(:operation_date)
   end
 
+  # Returns the information of an operation as an array
+  # @return <Array>
   def to_array
     [  self.company.name,
        self.invoice_num,
