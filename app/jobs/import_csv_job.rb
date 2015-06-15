@@ -3,7 +3,7 @@ class ImportCsvJob < ProgressJob::Base
 
 
   CHUNK_SIZE = 1000
-  def initialize(file_name , progress_max)
+  def initialize(file_name , progress_max=100)
     super progress_max: progress_max
     @file_name = file_name
 

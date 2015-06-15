@@ -3,6 +3,8 @@ class OperationsController < ApplicationController
 
   before_action :fetch_operations, only: [:for_company,:csv_for_company]
 
+  # POST /operations/import
+  # Imports operations from a csv file
   def import
     file = params[:file]
     if file.present?
@@ -14,7 +16,7 @@ class OperationsController < ApplicationController
           uploader = CsvFileUploader.new
           uploader.store!(file)
           #operations = SmarterCSV.process(file.tempfile, options)
-          @import_job = Delayed::Job.enqueue(ImportCsvJob.new(file.original_filename,100))
+          @import_job = Delayed::Job.enqueue(ImportCsvJob.new(file.original_filename))
       end
       else
         flash.now[:error] = I18n.t('operations.import.wrong_format')

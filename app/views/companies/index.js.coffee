@@ -1,9 +1,6 @@
 # Add the companies collapsables
 $('#companies').html("<%= j(render 'companies_collapse', companies: @companies) %>")
                .on 'click', '.company_header', (e) ->
-  if !$(this).hasClass('collapsed')
-    console.log($(this).closest('.panel').find('.panel-collapse'))
-    $(this).closest('.panel').find('.panel-collapse').collapse('hide')
 
 # On click of the header if the content of the collapse is empty
 # fill it
@@ -30,15 +27,7 @@ $('#accordion').on 'click', '.more_operations', (e)->
 # Empty the tables of each company and set the data attributes for
 # next searches
 $('#apply_filters').on 'click', (e) ->
-  companiesTab = $('#companies')
-  filterValue = $('#operations_filter').val()
-  table = $(companiesTab).find('.table')
-  $(companiesTab).find('.in').collapse('hide')
-  $(table).data('filter',filterValue)
-          .data('opened',0)
-          .data('nextpage',1)
-          .find('tbody').empty()
-  $('.more_operations').removeClass('hidden')
+  refresh_companies()
 
 #download the csv file
 $('.import_csv').on 'click', (e) ->

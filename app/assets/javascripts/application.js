@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require jquery.remotipart
+//= require reusable.js.coffee
 //= require_tree .

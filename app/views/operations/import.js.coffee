@@ -33,6 +33,7 @@
         return
       error: ->
         # Job is no loger in database which means it finished successfuly
+        $.get "/companies"
         $('.progress').removeClass 'active'
         $('.progress-bar').css('width', '100%').text '100%'
         #$('.progress-status').text 'Successfully imported!'
@@ -41,6 +42,7 @@
         return
     return
   ), 100)
+  refresh_companies()
 <% else %>
   $('.errors_wrapper').html("<%=flash.now[:error]%>")
   $('#send_csv').removeClass 'hidden'
