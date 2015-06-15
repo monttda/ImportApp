@@ -1,8 +1,11 @@
+require "csv_file_uploader"
 class ImportCsvJob < ProgressJob::Base
+
+
   CHUNK_SIZE = 1000
-  def initialize(operations , progress_max)
+  def initialize(file_name , progress_max)
     super progress_max: progress_max
-    @operations = operations
+    @file_name = file_name
 
   end
 
@@ -11,17 +14,25 @@ class ImportCsvJob < ProgressJob::Base
     failed = 0
     success = 0
     processed =0
-
+    uploader = CsvFileUploader.new
+    uploader.retrieve_from_store!(@file_name)
     update_stage('Processing the CSV')
-    if @operations.size > 0
+    csv_file = File.open(uploader.file.to_file)
+    options = {:chunk_size => ImportCsvJob::CHUNK_SIZE}
+    operations = SmarterCSV.process(csv_file, options)
+    csv_file.close
+    uploader.remove!
+    if operations.size > 0
       total_operations =
-        ((@operations.size()-1)* CHUNK_SIZE) + @operations.last.size
+        ((operations.size()-1)* CHUNK_SIZE) + operations.last.size
       value_per_operation = @progress_max/total_operations.to_f
     else
       total_operations= 0
       value_per_operation = 0
     end
-    @operations.each do |operations_chunk|
+
+
+      operations.each do |operations_chunk|
       operations_chunk.each do |operation|
         company_name = operation.delete(:company)
 
@@ -61,8 +72,9 @@ class ImportCsvJob < ProgressJob::Base
       update_stage_progress(
         "Processed operations: #{processed}/ #{total_operations} |  "\
         "Succeded: #{success} | Failed: #{failed}",
-        step: value_per_operation* operations_chunk.size())
+        step: 5* operations_chunk.size())
     end
+    # delete the file
     update_stage_progress(
       "Finished!   Processed operations: #{processed}/ #{total_operations} |  "\
       "Succeded: #{success} | Failed: #{failed}" )

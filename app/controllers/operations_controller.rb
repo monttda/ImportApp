@@ -11,8 +11,10 @@ class OperationsController < ApplicationController
 
         Rails.logger.silence do
           options = {:chunk_size => ImportCsvJob::CHUNK_SIZE}
-          operations = SmarterCSV.process(file.tempfile, options)
-          @import_job = Delayed::Job.enqueue(ImportCsvJob.new(operations,100))
+          uploader = CsvFileUploader.new
+          uploader.store!(file)
+          #operations = SmarterCSV.process(file.tempfile, options)
+          @import_job = Delayed::Job.enqueue(ImportCsvJob.new(file.original_filename,100))
       end
       else
         flash.now[:error] = I18n.t('operations.import.wrong_format')

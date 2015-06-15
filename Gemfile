@@ -13,6 +13,7 @@ gem 'thin'
 # gem "squeel"
 gem "squeel", '~> 1.2.3'
 
+gem "carrierwave"
 # Responders gem
 gem "responders", '~> 2.1.0'
 # Allow to use Rails form herlpers for uploading files as multiparts
