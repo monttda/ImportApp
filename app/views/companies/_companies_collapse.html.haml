@@ -1,7 +1,10 @@
+-#@params [Array<Hash>] companies_info information for each company.
+  * :text [String]  String containing companies data for display.
+  * :id [number] company's identifier
 .operations_filter
   .container
     .col-xs-10
-      %input#operations_filter.form-control{placeholder: 'Filter by invoice number, reporter, categories and kind '}
+      %input#operations_filter.form-control{placeholder: "#{t('companies.filter')}"}
     .col-xs-2
       #apply_filters.btn.btn-primary Filter By
 #accordion.panel-group{"aria-multiselectable" => "true", :role => "tablist"}

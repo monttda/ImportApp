@@ -1,11 +1,11 @@
 .col-xs-12
-  %h2 Import Operations
+  %h2= t('operations.import.title')
   = form_tag import_operations_path,  remote: true, method: :post, multipart: true , id: "csv_document"do
     .row
       .col-xs-4
         = file_field_tag :file ,class: "btn btn-primary"
       .col-xs-4
-        = submit_tag "Import", class: "btn btn-primary", id: "send_csv"
+        = submit_tag t('operations.import.button'), class: "btn btn-primary", id: "send_csv"
         .loader_wrapper
       .col-xs-4
     .row

@@ -5,17 +5,20 @@ class OperationsController < ApplicationController
 
   def import
     file = params[:file]
-    case File.extname(file.tempfile)
-    when '.csv'
+    if file.present?
+      case File.extname(file.try(:tempfile))
+      when '.csv'
 
-      Rails.logger.silence do
-        options = {:chunk_size => ImportCsvJob::CHUNK_SIZE}
-        operations = SmarterCSV.process(file.tempfile, options)
-        @import_job = Delayed::Job.enqueue(ImportCsvJob.new(operations,100))
-    end
+        Rails.logger.silence do
+          options = {:chunk_size => ImportCsvJob::CHUNK_SIZE}
+          operations = SmarterCSV.process(file.tempfile, options)
+          @import_job = Delayed::Job.enqueue(ImportCsvJob.new(operations,100))
+      end
+      else
+        flash.now[:error] = I18n.t('operations.import.wrong_format')
+      end
     else
-      flash.now[:error] = "The file extension is incorrect please provide a valid "\
-                      ".csv file"
+      flash.now[:error] = I18n.t('operations.import.wrong_format')
     end
   end
 
@@ -53,6 +56,9 @@ class OperationsController < ApplicationController
     @table_id = "company_#{params[:company_id]}_table"
   end
 
+  # GET /company/:company_id/for_company.csv
+  #
+  # Returns a csv file with the operations of a company
   def csv_for_company
     filter = params[:filter]
     company_name = Company.find(params[:company_id]).name

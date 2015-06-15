@@ -1,3 +1,5 @@
+-#@params [Hash] company_info: information of the company.
+
 .panel.panel-default
   .panel-heading{"id" => "heading_#{company_info[:id]}", :role => "tab"}
     %h4.panel-title
@@ -20,12 +22,12 @@
                                          opened: 0}}
         %thead
           %tr
-            %th.col-xs-2 Invoice Number
-            %th.col-xs-2 Invoice Date
-            %th.col-xs-2 Operation Date
-            %th.col-xs-1 Amount
-            %th.col-xs-1 Reporter
-            %th.col-xs-2 Notes
-            %th.col-xs-2 Kind
+            %th.col-xs-2= t('operations.invoice_num')
+            %th.col-xs-2= t('operations.invoice_date')
+            %th.col-xs-2= t('operations.operation_date')
+            %th.col-xs-1= t('operations.amount')
+            %th.col-xs-1= t('operations.reporter')
+            %th.col-xs-2= t('operations.notes') 
+            %th.col-xs-2= t('operations.kind') 
         %tbody
       .btn.btn-primary.more_operations Load More

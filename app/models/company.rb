@@ -11,7 +11,7 @@ class Company < ActiveRecord::Base
   #
   # @return [Array<Hash>] companies_info information for each company.
   # * :text [String]  String containing companies data for display.
-  # * :name [String] company's name
+  # :id [number] company's identifier
   def self.display_information()
     companies_info = []
     Company.order(:name).each do |company|
@@ -26,18 +26,18 @@ class Company < ActiveRecord::Base
       accepted_operations =
         company_operations.where(status: 'accepted').size
       avg_amount_of_operations =
-        company_operations.average(:amount)
+        company_operations.average(:amount).try(:round, 2)
       avg_amount_of_operations ||= 0
-      highest_operation = month_operations.maximum(:amount)
+      highest_operation = month_operations.maximum(:amount).try(:round, 2)
       highest_operation ||= 0
       num_of_operations = company_operations.size
       company_info[:id] = company.id
-      company_info[:name] = name
-      company_info[:text] = "#{name} | Number of operations "\
-                            "#{num_of_operations} | Average amount of "\
-                            "operations: #{avg_amount_of_operations} | "\
-                            "Highest operation: #{highest_operation} | "\
-                            "Accepted operations: #{accepted_operations}"
+      company_info[:text] = I18n.t("companies.header_info",
+                              name: name ,
+                              operations_num: num_of_operations ,
+                              avg_amount: avg_amount_of_operations ,
+                              highest_operation: highest_operation ,
+                              accepted_operation: accepted_operations )
 
       companies_info << company_info
     end

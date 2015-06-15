@@ -26,10 +26,12 @@ class ImportCsvJob < ProgressJob::Base
         company_name = operation.delete(:company)
 
         operation_invoice_num = operation[:invoice_num]
+        #Verify if this record has categories
         if (companies_hash.has_key?(company_name) &&
             operation[:kind].present? )
           categories_names = operation.delete(:kind).split(';')
           company_id_hash = {company_id: companies_hash[company_name]}
+          # Verify and Format dates
           [:invoice_date, :operation_date].each do |key|
             operation[key] =
               proccess_date(operation[key]) if operation[key].present?
